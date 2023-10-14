@@ -89,9 +89,5 @@ class HBNBCommand(cmd.Cmd):
                  result.append(obj.__str__())
          print(result)
 
-
-         
-         
-     
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
