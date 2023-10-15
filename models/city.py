@@ -1,8 +1,13 @@
-#!/usr/bin/python3
-""" Class City """
+#!/usr/bin/python
+""" holds class City"""
 from models.base_model import BaseModel
 
+
 class City(BaseModel):
-""" City class that inherits BaseModel """
+    """Representation of city """
     state_id = ""
     name = ""
+
+    def __init__(self, *args, **kwargs):
+        """initializes city"""
+        super().__init__(*args, **kwargs)

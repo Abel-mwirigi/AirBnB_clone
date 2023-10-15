@@ -1,7 +1,7 @@
 #!/usr/bin/python
-""" holds the class Place"""
-
+""" holds class Place"""
 from models.base_model import BaseModel
+
 
 class Place(BaseModel):
     """Representation of Place """
