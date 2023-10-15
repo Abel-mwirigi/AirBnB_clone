@@ -1,7 +1,12 @@
-#!/usr/bin/python3
-"""create a unique FileStorage instance for your application"""
+#!/usr/bin/python
+""" holds class Amenity"""
+from models.base_model import BaseModel
 
-from models.engine.file_storage import FileStorage
 
-storage = FileStorage()
-storage.reload()
+class Amenity(BaseModel):
+    """Representation of Amenity """
+    name = ""
+
+    def __init__(self, *args, **kwargs):
+        """initializes Amenity"""
+        super().__init__(*args, **kwargs)
