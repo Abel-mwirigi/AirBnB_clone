@@ -46,5 +46,5 @@ class FileStorage:
                     clas = self.classes[clas_name]
                     FileStorage.__objects[key] = clas(**value)
 
-        except Exception:
+        except:
             pass
