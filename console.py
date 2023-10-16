@@ -17,9 +17,6 @@ class HBNBCommand(cmd.Cmd):
      """class to define the command interpreter"""
 
      prompt = "(hbnb)"
-    def do_quit(self, arg):
-    """Quit command to exit the program"""
-    return True
 
      def do_EOF(self, arg):
           """function to handle eof command"""
@@ -32,11 +29,10 @@ class HBNBCommand(cmd.Cmd):
 
      def do_create(self, arg):
          """Creates a new instance of BaseModel"""
-        if not arg:
-            print("** class name missing **")
-            return
-        my_data = shlex.split(arg)
-        if my_data[0] not in HBNBCommand.my_dict.keys():
+         print("** class name missing **")
+         return
+       
+      if my_data[0] not in HBNBCommand.my_dict.keys()
             print("** class doesn't exist **")
             return
         new_instance = HBNBCommand.my_dict[my_data[0]]()
