@@ -9,15 +9,18 @@ class HBNBCommand(cmd.Cmd):
      """class to define the command interpreter"""
 
      prompt = "(hbnb)"
-
+        classes = {'BaseModel': BaseModel, 'User': User, 'City': City,
+               'Place': Place, 'Amenity': Amenity, 'Review': Review,
+               'State': State}
+        
      def do_quit(self, arg):
           """Quit command to exit the program"""
-          return True
+          exit()
 
      def do_EOF(self, arg):
           """function to handle eof command"""
           print()
-          return True
+          exit()
 
      def emptyline(self):
         """does nothing when an empty line is passed"""
@@ -25,7 +28,6 @@ class HBNBCommand(cmd.Cmd):
 
      def do_create(self, arg):
          """Creates a new instance of BaseModel"""
-         args = arg.split()
          if len(args) == 0:
              print("** class name missing **")
 
