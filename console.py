@@ -110,8 +110,7 @@ class HBNBCommand(cmd.Cmd):
             print(json.dumps(my_json))
         else:
             print("** class doesn't exist **")
-        
-         def do_update(self, arg):
+            def do_update(self, arg):
         """
         Updates an instance based on the class name and
         id by adding or updating attribute
