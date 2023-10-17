@@ -8,10 +8,10 @@ from models.city import City
 from models.place import Place
 from models.review import Review
 from models.state import State
-from models.user import User
+from models.user import user
 
 classes = {"Amenity": Amenity, "BaseModel": BaseModel, "City": City,
-           "Place": Place, "Review": Review, "State": State, "User": User}
+           "Place": Place, "Review": Review, "State": State, "User": user}
 
 class FileStorage:
     """
@@ -23,12 +23,12 @@ class FileStorage:
 
     def all(self):
         """returns the dictionary objects"""
-        return self.__objects
+        return FileStorage.__objects
 
     def new(self, obj):
         """ adds obj in the __objects dict with key <obj class name>.id"""
         key = f"{obj.__class__.__name__}.{obj.id}"
-        self.__objects[key] = obj
+        FileStorage.__objects[key] = obj
 
     def save(self):
         """serializes __objects to the JSON file (path: __file_path)"""
@@ -46,5 +46,5 @@ class FileStorage:
                     clas = self.classes[clas_name]
                     FileStorage.__objects[key] = clas(**value)
 
-        except:
+        except Exception:
             pass

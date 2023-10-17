@@ -2,11 +2,13 @@
 """contains the entry point of the command interpreter"""
 
 import cmd
-from models.base_model import BaseModel
+#from models.base_model import BaseModel
 from models import storage
+from models.base_model import BaseModel
+from models.engine.file_storage import FileStorage
 import json
 import shlex
-from models.user import User
+from models.user import user
 from models.state import State
 from models.city import City
 from models.amenity import Amenity
@@ -18,6 +20,19 @@ class HBNBCommand(cmd.Cmd):
 
      prompt = "(hbnb)"
 
+     __classes = {
+        "BaseModel",
+        "User",
+        "State",
+        "City",
+        "Place",
+        "Amenity",
+        "Review"
+    }
+
+     def do_quit(self, arg):
+          """Quit command to exit the program"""
+          return True
      def do_EOF(self, arg):
           """function to handle eof command"""
           print()
@@ -29,13 +44,15 @@ class HBNBCommand(cmd.Cmd):
 
      def do_create(self, arg):
          """Creates a new instance of BaseModel"""
-         print("** class name missing **")
-         return
-       
-      if my_data[0] not in HBNBCommand.my_dict.keys()
-            print("** class doesn't exist **")
-            return
-        new_instance = HBNBCommand.my_dict[my_data[0]]()
+         args = arg.split()
+         if len(args) == 0:
+             print("** class name missing **")
+
+         elif args[0] != "BaseModel":
+            print("** classs doesn't exits **")
+
+         else:
+             instance = BaseModel()
              instance.save()
              print(instance.id)
 
@@ -67,22 +84,23 @@ class HBNBCommand(cmd.Cmd):
          args = arg.split()
          if len(args) == 0:
              print("** class name missing **")
-            return
-         elif args[0] not in HBNBCommand.my_dict.keys():
-         print("** classs doesn't exits **")
-        return
+             return
+         elif args[0] not in HBNBCommand.__classes:
+             print("** classs doesn't exits **")
+             return
          elif len(args) <= 1:
             print("** instance id missing **")
-        return
-     storage.reload()
-        objs_dict = storage.all()
-        key = tokens[0] + "." + tokens[1]
+            return
          else:
+             storage.reload()
+             Key = args[0] + "." + args[1]
+             dict = storage.all()
              if Key in dict:
-               del  objs_ dict[Key]
-                 storage.save()
+                del dict[Key]
+                storage.save()
              else:
                  print("** no instance found **")
+         
 
      def do_all(self, arg):
           """
@@ -90,23 +108,23 @@ class HBNBCommand(cmd.Cmd):
         based or not on the class name
         Structure: all [class name] or all
         """
-         storage.reload()
-        my_json = []
-        objects_dict = storage.all()
-        if not arg:
+          storage.reload()
+          my_json = []
+          objects_dict = storage.all()
+          if not arg:
             for key in objects_dict:
                 my_json.append(str(objects_dict[key]))
             print(json.dumps(my_json))
             return
-        token = shlex.split(arg)
-        if token[0] in HBNBCommand.my_dict.keys():
+          token = shlex.split(arg)
+          if token[0] in HBNBCommand.__classes:
             for key in objects_dict:
                 if token[0] in key:
                     my_json.append(str(objects_dict[key]))
             print(json.dumps(my_json))
-        else:
+          else:
             print("** class doesn't exist **")
-            def do_update(self, arg):
+     def do_update(self, arg):
         """
         Updates an instance based on the class name and
         id by adding or updating attribute
@@ -119,7 +137,7 @@ class HBNBCommand(cmd.Cmd):
         my_data = shlex.split(arg)
         storage.reload()
         objs_dict = storage.all()
-        if my_data[0] not in HBNBCommand.my_dict.keys():
+        if my_data[0] not in HBNBCommand.__classes:
             print("** class doesn't exist **")
             return
         if (len(my_data) == 1):
@@ -145,10 +163,8 @@ class HBNBCommand(cmd.Cmd):
             setattr(my_instance, my_data[2], my_data[3])
         storage.save()
 
-         def do_count(self, arg):
-        """
-        Counts number of instances of a class
-        """
+     def do_count(self, arg):
+        """Counts number of instances of a class"""
         counter = 0
         objects_dict = storage.all()
         for key in objects_dict:
